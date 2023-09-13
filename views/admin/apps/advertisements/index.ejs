@@ -1,0 +1,517 @@
+<%- include('../../layouts/header') %>
+
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <!-- Card header -->
+                <div class="col-6 col-md-6 col-sm-12 order-md-1 order-last">
+                    <div class="row">
+                        <div class="col-2 col-md-3 col-sm-12 order-md-1 order-last">
+                            <h3>Advertise</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-6 col-sm-12 order-md-2 order-last">
+
+                    <div class="buttons float-end">
+                        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addAddModel">
+                            <i class="fas fa-plus">&nbsp;</i>
+                            Add Advertise</button>
+                    </div>
+                    <a style="float: right;color: #000000;" class="me-2" onclick="goBack()">
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true" style="font-size: x-large;"></i>
+                        <m style="font-size: x-large; font-weight: 600;"> Back</m>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="card">
+                <div class="card-header" style="text-transform: capitalize;">
+                    Advertise
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" id="dataTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Type</th>
+                                <th>Platform</th>
+                                <th>Key</th>
+                                <th>Keyword</th>
+                                <th>Show</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal fade text-left" id="addAddModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content" style="overflow: scroll;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Add Advertise</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="#" id="addAddForm">
+                        <div class="modal-body">
+                            <input type="hidden" id="app_id" name="app_id" class="form-control" value="<%= app_id %>">
+                            <div class="form-group">
+                                <label>Add Type: </label>
+                                <select class="choices form-control form-select-white"
+                                    style="width: 100%; background-color: white; color:black ;" id="add_type"
+                                    name="add_type">
+                                    <option value="Interstitial">Interstitial</option>
+                                    <option value="native">Native</option>
+                                    <option value="reward">Reward</option>
+                                    <option value="banner">Banner</option>
+                                    <option value="native_banner">Native banner</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Add Platform: </label>
+                                <select class="choices form-control form-select-white"
+                                    style="width: 100%; background-color: white; color:black ;" id="add_platform"
+                                    name="add_platform">
+                                    <option value="google">Google</option>
+                                    <option value="facebook">Facebook</option>
+                                    <option value="qureka">Qureka</option>
+                                    <option value="applovin">Applovin</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Add Key: </label>
+                                <input type="text" placeholder="Enter add key" id="add_key" name="add_key"
+                                    class="form-control" required>
+                                <p class="text-danger" id="err-add_key" style=" color: #9f0606; display: none">add key
+                                    is required</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Keyword: </label>
+                                <input type="text" placeholder="Enter keyword" id="keyword" name="keyword"
+                                    class="form-control" required>
+                                <p class="text-danger" id="err-keyword" style=" color: #9f0606; display: none">keyword
+                                    is required</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Show</label>
+                                <label class="toggle">
+                                    <input class="toggle-checkbox custom-checkbox" type="checkbox" name="is_show"
+                                        id="is_show">
+                                    <div class="toggle-switch"></div>
+                                    <span class="toggle-label"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-light-secondary" data-bs-dismiss="modal">
+
+                                <span>Close</span>
+                            </button>
+                            <button type="submit" class="btn btn-dark" id="addAdvertiseButton">
+
+                                <span>Add</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade text-left" id="updateAddModel" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel33" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content" style="overflow: scroll;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Update Advertise</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="#" id="updateAddForm">
+                        <div class="modal-body">
+                            <input type="hidden" id="up-app_id" name="app_id" class="form-control"
+                                value="<%= app_id %>">
+                            <div class="form-group">
+                                <label>Add Type: </label>
+                                <select class="choices form-control form-select-white"
+                                    style="width: 100%; background-color: white; color:black ;" id="up-add_type"
+                                    name="add_type">
+                                    <option value="Interstitial">Interstitial</option>
+                                    <option value="native">Native</option>
+                                    <option value="reward">Reward</option>
+                                    <option value="banner">Banner</option>
+                                    <option value="native_banner">Native banner</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Add Platform: </label>
+                                <select class="choices form-control form-select-white"
+                                    style="width: 100%; background-color: white; color:black ;" id="up-add_platform"
+                                    name="add_platform">
+                                    <option value="google">Google</option>
+                                    <option value="facebook">Facebook</option>
+                                    <option value="qureka">Qureka</option>
+                                    <option value="applovin">Applovin</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Add Key: </label>
+                                <input type="text" placeholder="Enter add key" id="up-add_key" name="add_key"
+                                    class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Keyword: </label>
+                                <input type="text" placeholder="Enter keyword" id="up-keyword" name="keyword"
+                                    class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Show</label>
+                                <label class="toggle">
+                                    <input class="toggle-checkbox custom-checkbox" type="checkbox" name="is_show"
+                                        id="up-is_show">
+                                    <div class="toggle-switch"></div>
+                                    <span class="toggle-label"></span>
+                                </label>
+                            </div>
+                            <input name="id" type="hidden" id="id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-light-secondary" data-bs-dismiss="modal">
+
+                                <span>Close</span>
+                            </button>
+                            <button type="submit" class="btn btn-dark" id="updateAdvertiseButton">
+
+                                <span>Update<span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function toggleHandler(id, checked) {
+
+            const is_show = $('#up-is_show').val()
+
+            fetch(`/admin/apps/advertise/is_show/${id}`, {
+                method: "PATCH",
+                body: JSON.stringify({ "is_show": true }),
+                mode: 'cors',
+                cache: 'no-cache',
+            })
+                .then(async function (res) {
+                    const data = await res.json()
+                    if (data.success) {
+                        Toastify({
+                            text: "updated.",
+                            duration: 1000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "rgb(31 191 95)",
+                        }).showToast();
+                        $('#dataTable').DataTable().ajax.reload();
+                    }
+                    else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something is wrong",
+                            confirmButtonColor: "#000000",
+                        })
+                    }
+                })
+                .catch(function (res) {
+                    console.log(res);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something is wrong",
+                        confirmButtonColor: "#000000",
+                    })
+                })
+        }
+
+
+        $(document).ready(function () {
+            var table = $('#dataTable').DataTable({
+                paging: true,
+                responsive: true,
+                searching: true,
+                ajax: {
+                    type: "GET",
+                    url: "/admin/apps/advertise/data/<%- app_id %>",
+                    dataSrc: "data",
+                },
+                columns: [
+                    {
+                        "data": null,
+                        "render": function (data, type, full, meta) {
+                            return meta.row + 1
+                        }
+                    },
+                    {
+                        "data": 'add_type'
+                    },
+                    {
+                        "data": 'add_platform',
+                    },
+                    {
+                        "data": 'add_key'
+                    },
+                    {
+                        "data": 'keyword'
+                    },
+                    {
+                        "data": null,
+                        render: function (data, type, row) {
+                            const is_show = row.is_show === true;
+
+                            let content = '<td><div class="d-flex">';
+                            content += `<label class="toggle"><input class="toggle-checkbox data-toggle" id="${row.id}" type="checkbox" name="is_show" ${is_show ? 'checked' : ''}>`;
+                            content += `<div class="toggle-switch custom-data-checked" onclick="toggleHandler(${row.id},${is_show})"></div>`;
+                            content += '<span class="toggle-label"></span></label>';
+                            content += '</div></td>';
+                            return content;
+                        }
+                    },
+                    {
+                        "data": null,
+                        render: function (data, type, row) {
+                            let content = `<td><div class="d-flex">`
+                            content = content +
+                                '<a href="#"  class="edit" data-value ="' + row.id + '" data-bs-toggle="modal" data-bs-target="#updateAddModel"><i class="fas fa-edit" style="color: #000000;"></i></a>'
+                            content = content +
+                                '<a href="#"  class="delete" data-value ="' + row.id + '" style="margin-left: 30px;"><i class="fa-regular fa-trash-can" aria-hidden="true"  style="color: red;"></i></a>'
+                            content = content + `</div></td>`
+                            return content
+                        }
+                    },
+
+                ],
+
+
+            });
+
+            $(".custom-checkbox").on('change', function () {
+                if ($(this).is(':checked')) {
+                    $(this).attr('value', 'true');
+                }
+                else {
+                    $(this).attr('value', 'false');
+                }
+            });
+
+            $('#addAdvertiseButton').click(function (e) {
+                e.preventDefault();
+
+                const app_id = $('#app_id').val()
+                const add_type = $("#add_type").val();
+                const add_platform = $("#add_platform").val();
+                const add_key = $('#add_key').val()
+                const keyword = $('#keyword').val()
+                const is_show = $('#is_show').val()
+
+                const data = {
+                    app_id, add_type, add_platform, add_key, keyword, add_key, is_show
+                }
+
+                fetch(`/admin/apps/advertise`,
+                    {
+                        method: "POST",
+                        body: JSON.stringify(data),
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    })
+                    .then(async function (res) {
+                        const data = await res.json()
+                        if (data.success) {
+                            $('#addAddModel').modal('hide');
+                            Swal.fire({
+                                icon: "success",
+                                title: "Success",
+                                text: "advertise added successfully.",
+                                timer: 1000,
+                                showConfirmButton: false
+                            })
+                            table.ajax.reload();
+                        }
+                        else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Something is wrong",
+                                confirmButtonColor: "#000000",
+                            })
+                        }
+                    })
+                    .catch(function (res) {
+                        console.log(res);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something is wrong",
+                            confirmButtonColor: "#000000",
+                        })
+                    })
+            })
+
+
+            $('#addAddModel').on('show.bs.modal', function (event) {
+                $("#addAddForm").trigger("reset");
+            })
+        })
+
+        $(document).on('click', '.edit', function (e) {
+            e.preventDefault()
+            var addsId = $(this).data('value')
+            fetch(`/admin/apps/advertise/view/${addsId}`)
+                .then(response => response.json())
+                .then((data) => {
+                    const { app_id, add_type, add_platform, add_key, keyword, is_show, id } = data.data
+                    $('#id').val(id)
+                    $('#up-app_id').val(app_id)
+                    $('#up-add_type').val(add_type)
+                    $('#up-add_platform').val(add_platform)
+                    $('#up-add_key').val(add_key)
+                    $('#up-keyword').val(keyword)
+                    if (is_show) {
+                        $("#up-is_show").prop("checked", true);
+                    } else {
+                        $("#up-is_show").prop("checked", false);
+                    }
+                })
+                .catch((err) => console.log(err))
+        })
+
+        $('#updateAdvertiseButton').click(function (e) {
+            e.preventDefault();
+
+            var data = $('#updateAddForm').serializeArray().reduce((o, { name: n, value: v }) => Object.assign(o, { [n]: v }), {});
+
+            fetch(`/admin/apps/advertise/${data.id}`, {
+                method: "PUT",
+                body: JSON.stringify(data),
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(async function (res) {
+                    const data = await res.json()
+                    if (data.success) {
+                        $('#updateAddModel').modal('hide');
+                        Toastify({
+                            text: "advertise updated successfully.",
+                            duration: 1000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "rgb(31 191 95)",
+                        }).showToast();
+                        $('#dataTable').DataTable().ajax.reload();
+                    }
+                    else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something is wrong",
+                            confirmButtonColor: "#000000",
+                        })
+                    }
+                })
+                .catch(function (res) {
+                    console.log(res);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something is wrong",
+                        confirmButtonColor: "#000000",
+                    })
+                })
+        })
+
+        $(document).on('click', '.delete', function () {
+            const id = $(this).data('value')
+
+            Swal.fire({
+                title: "Are you sure about deleting this advertise?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+                confirmButtonColor: "#000000",
+                cancelButtonColor: "#999999",
+                reverseButtons: true,
+                focusConfirm: false,
+                focusCancel: true,
+            })
+                .then((e) => {
+                    if (e.isConfirmed) {
+                        fetch(`/admin/apps/advertise/${id}`,
+                            {
+                                method: "DELETE",
+                                mode: 'cors',
+                                cache: 'no-cache',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                            })
+                            .then(async function (res) {
+                                const data = await res.json()
+                                if (data.success) {
+                                    Toastify({
+                                        text: "advertise deleted successfully.",
+                                        duration: 1000,
+                                        close: true,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "rgb(245 90 90)",
+                                    }).showToast();
+                                    $('#dataTable').DataTable().ajax.reload();
+                                }
+                                else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Oops...",
+                                        text: "Something is wrong",
+                                        confirmButtonColor: "#000000",
+                                    })
+                                }
+                            })
+                            .catch(function (res) {
+                                console.log(res);
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Something is wrong",
+                                    confirmButtonColor: "#000000",
+                                })
+                            })
+                    }
+                })
+        })
+
+    </script>
+
+    <%- include('../../layouts/footer') %>

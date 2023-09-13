@@ -1,0 +1,452 @@
+<%- include('../../../../layouts/header') %>
+
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <!-- Card header -->
+                <div class="col-6 col-md-6 col-sm-12 order-md-1 order-last">
+                    <div class="row">
+                        <div class="col-2 col-md-3 col-sm-12 order-md-1 order-last">
+                            <h3>Sub Category Menus</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-6 col-sm-12 order-md-2 order-last">
+
+                    <div class="buttons float-end">
+                        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addSubCategoryMenuModel">
+                            <i class="fas fa-plus">&nbsp;</i>
+                            Add Sub Category Menu</button>
+                    </div>
+                    <a style="float: right;color: #000000;" class="me-2" onclick="goBack()">
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true" style="font-size: x-large;"></i>
+                        <m style="font-size: x-large; font-weight: 600;"> Back</m>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="card">
+                <div class="card-header" style="text-transform: capitalize;">
+                    Sub Category Menus
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" id="dataTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name </th>
+                                <th>Image</th>
+                                <th>Background Color</th>
+                                <th>Font Color</th>
+                                <th>Action</th>
+                                <th>Content</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal fade text-left" id="addSubCategoryMenuModel" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel33" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content" style="overflow: scroll;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Add Sub Category Menu
+
+                        </h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="#" id="addSubCategoryMenuForm">
+                        <div class="modal-body">
+                            <input type="hidden" id="subcategory_id" name="subcategory_id" class="form-control"
+                                value="<%= subcategory_id %>">
+                            <div class="form-group">
+                                <label>Name: </label>
+                                <input type="text" placeholder="Enter name" id="name" name="name" class="form-control"
+                                    required>
+                                <p class="text-danger" id="err-name" style=" color: #9f0606; display: none">name is
+                                    required
+                                </p>
+                            </div>
+                            <label>Image: </label>
+                            <div class="form-group">
+                                <input type="file" placeholder="Enter image" name="image" id="image"
+                                    class="form-control" accept="image/x-png,image/gif,image/jpeg"
+                                    onchange="handlePickImage(1)">
+                                <p class="text-danger" id="err-image" style="color: #9f0606; display: none">
+                                    image is required
+                                </p>
+                                <img class="img-fluid mt-3" id="imageAtCreate" style="width:200px;" />
+                            </div>
+                            <div class="form-group">
+                                <label>Background Color: </label>
+                                <input type="color" placeholder="Enter background color" name="bg_color" id="bg_color"
+                                    class="form-control">
+                                <p class="text-danger" id="err-bg_color" style="color: #9f0606; display: none">
+                                    background color is
+                                    required</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Font Color: </label>
+                                <input type="color" placeholder="Enter font color" name="font_color" id="font_color"
+                                    class="form-control">
+                                <p class="text-danger" id="err-font_color" style="color: #9f0606; display: none">font
+                                    color is required</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-light-secondary" data-bs-dismiss="modal">
+
+                                <span>Close</span>
+                            </button>
+                            <button type="submit" class="btn btn-dark" id="addSubCategoryMenuButton">
+
+                                <span>Add</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade text-left" id="updateSubCategoryMenuModel" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel33" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content" style="overflow: scroll;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel33">Update Sub Category Menu</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="#" id="updateSubCategoryMenuForm">
+                        <div class="modal-body">
+                            <input type="hidden" id="up-subcategory_id" name="subcategory_id" class="form-control"
+                                value="<%= subcategory_id %>">
+                            <div class="form-group">
+                                <label>Name: </label>
+                                <input type="text" placeholder="Enter name" id="up-name" name="name"
+                                    class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Image: </label>
+                                <input type="file" placeholder="Enter image" name="image" id="up-image"
+                                    class="form-control" accept="image/x-png,image/gif,image/jpeg"
+                                    onchange="handlePickImage(2)">
+                                <img id="showImage" style="width:200px;height: 200px;" />
+                            </div>
+                            <div class="form-group">
+                                <label>Background Color: </label>
+                                <input type="color" placeholder="Enter background color" name="bg_color"
+                                    id="up-bg_color" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Font Color: </label>
+                                <input type="color" placeholder="Enter font color" name="font_color" id="up-font_color"
+                                    class="form-control">
+                            </div>
+                            <input name="id" type="hidden" id="id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-light-secondary" data-bs-dismiss="modal">
+
+                                <span>Close</span>
+                            </button>
+                            <button type="submit" class="btn btn-dark" id="updateSubCategoryMenuButton">
+
+                                <span>Update</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function handlePickImage(pickFor) {
+            let reader = new FileReader();
+            switch (pickFor) {
+                case 1:
+                    reader.readAsDataURL(document.getElementById('image').files[0]);
+                    reader.onload = function (e) {
+                        document.getElementById('imageAtCreate').src = e.target.result;
+                    }
+                    break;
+                case 2:
+                    reader.readAsDataURL(document.getElementById('up-image').files[0]);
+                    reader.onload = function (e) {
+                        document.getElementById('showImage').src = e.target.result;
+                    }
+            }
+        }
+
+
+        $(document).ready(function () {
+            var table = $('#dataTable').DataTable({
+                paging: true,
+                responsive: true,
+                searching: true,
+                ajax: {
+                    type: "GET",
+                    url: "/admin/sub-category/menus/data/<%- subcategory_id %>",
+                    dataSrc: "data",
+                },
+                columns: [
+                    {
+                        "data": null,
+                        "render": function (data, type, full, meta) {
+                            return meta.row + 1
+                        }
+                    },
+                    {
+                        "data": 'name'
+                    },
+                    {
+                        "data": 'image',
+                        render: function (data) {
+                            return '<img src="' + data + '" style="width:100px;height: 75px;">'
+                        }
+                    },
+                    {
+                        "data": 'bg_color'
+                    },
+                    {
+                        "data": 'font_color'
+                    },
+                    {
+                        "data": null,
+                        render: function (data, type, row) {
+                            let content = `<td><div class="d-flex">`
+                            content = content +
+                                '<a href="#"  class="edit" data-value ="' + row.id + '" data-bs-toggle="modal" data-bs-target="#updateSubCategoryMenuModel"><i class="fas fa-edit" style="color: #000000;"></i></a>'
+                            content = content +
+                                '<a href="#"  class="delete" data-value ="' + row.id + '" style="margin-left: 30px;"><i class="fa-regular fa-trash-can" aria-hidden="true"  style="color: red;"></i></a>'
+                            content = content + `</div></td>`
+                            return content
+                        }
+                    },
+                    {
+                        "data": null,
+                        render: function (data, type, row) {
+                            let content = `<td><div class="d-flex">`
+                            content = content +
+                                `<a href="/admin/content?subcategory_menu_id=${row.id}"  class="view" style = "color: blue;" > view content</a >`
+                            content = content + `</div ></td > `
+                            return content
+                        }
+                    }
+                ]
+            });
+
+            $('#addSubCategoryMenuButton').click(function (e) {
+                e.preventDefault();
+
+                const subcategory_id = $('#subcategory_id').val()
+                const name = $('#name').val()
+                const image = $('#image')
+                const bg_color = $('#bg_color').val()
+                const font_color = $('#font_color').val()
+
+                var form = $('#addSubCategoryMenuForm')[0];
+                var formData = new FormData(form);
+
+
+                fetch(`/admin/sub-category/menus`,
+                    {
+                        method: "POST",
+                        body: formData,
+                        mode: 'cors',
+                        cache: 'no-cache',
+                    })
+                    .then(async function (res) {
+                        const data = await res.json()
+                        if (data.success) {
+                            $('#addSubCategoryMenuModel').modal('hide');
+                            Swal.fire({
+                                icon: "success",
+                                title: "Success",
+                                text: "sub category menu added successfully.",
+                                timer: 1000,
+                                showConfirmButton: false
+                            })
+                            table.ajax.reload();
+                        }
+                        else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Something is wrong",
+                                confirmButtonColor: "#000000",
+                            })
+                        }
+                    })
+                    .catch(function (res) {
+                        console.log(res);
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something is wrong",
+                            confirmButtonColor: "#000000",
+                        })
+                    })
+            })
+
+
+            $('#addSubCategoryMenuModel').on('show.bs.modal', function (event) {
+                $("#addSubCategoryMenuForm").trigger("reset");
+                $('#image').val("")
+            })
+            $('#updateSubCategoryMenuModel').on('show.bs.modal', function (event) {
+                $('#up-image').val("")
+            })
+        })
+
+        $(document).on('click', '.edit', function (e) {
+            e.preventDefault()
+            var categoryMenuId = $(this).data('value')
+            fetch(`/admin/sub-category/menus/view/${categoryMenuId}`)
+                .then(response => response.json())
+                .then((data) => {
+                    const { id, subcategory_id, name, image, bg_color, font_color } = data.data
+                    $('#id').val(id)
+                    $('#up-subcategory_id').val(subcategory_id)
+                    $('#up-name').val(name)
+                    $('#showImage').prop("src", image);
+                    $('#up-bg_color').val(bg_color)
+                    $('#up-font_color').val(font_color)
+                })
+                .catch((err) => console.log(err))
+        })
+
+        $('#updateSubCategoryMenuButton').click(function (e) {
+            e.preventDefault();
+
+            const subCategoryMenuId = $('#id').val()
+            const name = $('#up-name').val()
+            const image = $('#up-image')
+            const bg_color = $('#up-bg_color').val()
+            const font_color = $('#up-font_color').val()
+
+            var form = $('#updateSubCategoryMenuForm')[0];
+            var formData = new FormData(form);
+
+
+            fetch(`/admin/sub-category/menus/${subCategoryMenuId}`, {
+                method: "PUT",
+                body: formData,
+                mode: 'cors',
+                cache: 'no-cache',
+            })
+                .then(async function (res) {
+                    const data = await res.json()
+                    if (data.success) {
+                        $('#updateSubCategoryMenuModel').modal('hide');
+                        Toastify({
+                            text: "sub category menu updated successfully.",
+                            duration: 1000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "rgb(31 191 95)",
+                        }).showToast();
+                        $('#dataTable').DataTable().ajax.reload();
+                    }
+                    else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something is wrong",
+                            confirmButtonColor: "#000000",
+                        })
+                    }
+                })
+                .catch(function (res) {
+                    console.log(res);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something is wrong",
+                        confirmButtonColor: "#000000",
+                    })
+                })
+        })
+
+
+        $(document).on('click', '.delete', function () {
+            const id = $(this).data('value')
+
+            Swal.fire({
+                title: "Are you sure about deleting this sub category menu?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Delete",
+                confirmButtonColor: "#000000",
+                cancelButtonColor: "#999999",
+                reverseButtons: true,
+                focusConfirm: false,
+                focusCancel: true,
+            })
+                .then((e) => {
+                    if (e.isConfirmed) {
+                        fetch(`/admin/sub-category/menus/${id}`,
+                            {
+                                method: "DELETE",
+                                mode: 'cors',
+                                cache: 'no-cache',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                            })
+                            .then(async function (res) {
+                                const data = await res.json()
+                                if (data.success) {
+                                    Toastify({
+                                        text: "sub category menu deleted successfully.",
+                                        duration: 1000,
+                                        close: true,
+                                        gravity: "top",
+                                        position: "right",
+                                        backgroundColor: "rgb(245 90 90)",
+                                    }).showToast();
+                                    $('#dataTable').DataTable().ajax.reload();
+                                }
+                                else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Oops...",
+                                        text: "Something is wrong",
+                                        confirmButtonColor: "#000000",
+                                    })
+                                }
+                            })
+                            .catch(function (res) {
+                                console.log(res);
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: "Something is wrong",
+                                    confirmButtonColor: "#000000",
+                                })
+                            })
+                    }
+                })
+        })
+
+    </script>
+
+    <%- include('../../../../layouts/footer') %>

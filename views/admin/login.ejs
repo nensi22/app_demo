@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Admin | Demo-app</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../admin/css/pages/auth.css">
+  <link rel="stylesheet" type="text/css" href="../admin/fonts/iconic/css/material-design-iconic-font.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/css/bootstrap-select.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <form class="login100-form validate-form" id="loginForm" action="/admin/login" method="post">
+          <div class="wrap-input100 validate-input" data-validate="Enter email">
+            <input class="input100" name="email" placeholder="Email"
+              value="<%= (typeof data !== 'undefined' && data && data.email) ? data.email :  '' %>">
+            <span class="focus-input100" data-placeholder="&#xf207;"></span>
+            <% if(typeof error !=='undefined' ) { %>
+              <% for(var i in error.details) { if(error.details[i].context.key=='email' ) { %>
+                <small class="text-danger" id="error-email" style="color: #9f0606;">
+                  <%= error.details[i].message %>
+                </small>
+                <% } %>
+                  <% } %>
+                    <% } %>
+          </div>
+
+          <div class=" wrap-input100 validate-input" data-validate="Enter password">
+            <input class="input100" type="password" name="password" placeholder="Password">
+            <span class="focus-input100" data-placeholder="&#xf191;"></span>
+            <% if(typeof error !=='undefined' ) { %>
+              <% for(var i in error.details) { if(error.details[i].context.key=='password' ) { %>
+                <small class="text-danger" id="error-pwd" style="color: #9f0606;">
+                  <%= error.details[i].message %>
+                </small>
+                <% } %>
+                  <% } %>
+                    <% } %>
+                      <small class="text-danger" style="color: #9f0606;">
+                        <%= (typeof message !=='undefined' ) ? message : '' %>
+                      </small>
+          </div>
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" id="signIn" type="submit">
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

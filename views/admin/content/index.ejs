@@ -1,0 +1,180 @@
+<%- include('../layouts/header') %>
+
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-6 col-md-6 col-sm-12 order-md-1 order-last">
+                    <div class="row">
+                        <div class="col-2 col-md-3 col-sm-12 order-md-1 order-last">
+                            <h3>Content</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-6 col-sm-12 order-md-2 order-last">
+                    <a style="float: right;color: #000000;" class="me-2" onclick="goBack()">
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true" style="font-size: x-large;"></i>
+                        <m style="font-size: x-large; font-weight: 600;"> Back</m>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="card">
+                <div class="card-body">
+                    <form action="#" id="editorForm">
+                        <textarea id="editor" name="content">
+                            <% if (content) { %>
+                                <%= content.content %>
+                                    <% } %>
+                        </textarea>
+                        <input type="hidden" name="subcategory_menu_id" id="subcategory_menu_id"
+                            value="<%= subcategory_menu_id %>">
+                        <input type="hidden" name="category_menu_id" id="category_menu_id"
+                            value="<%= category_menu_id %>">
+                        <input type="hidden" name="id" id="content_id" value="<%= content?.id %>">
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            <% if(content ){ %>
+                                <button type="submit" class="btn btn-dark" id="updateContentButton">
+                                    <span>Update</span>
+                                </button>
+                                <% } else { %>
+                                    <button type="submit" class="btn btn-dark" id="saveContentButton">
+                                        <span>Save</span>
+                                    </button>
+                                    <% } %>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        var editor1 = new RichTextEditor("#editor");
+
+        function goBack() {
+            window.history.back();
+        }
+
+        $('#saveContentButton').click(function (e) {
+            e.preventDefault();
+
+            const subcategory_menu_id = $('#subcategory_menu_id').val()
+            const category_menu_id = $('#category_menu_id').val()
+            const content = $('#editor').val()
+
+            const data = {
+                subcategory_menu_id, category_menu_id, content
+            }
+            // console.log('data : ', data)
+
+            fetch(`/admin/content`,
+                {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(async function (res) {
+                    const data = await res.json()
+                    if (data.success) {
+                        // Swal.fire({
+                        //     icon: "success",
+                        //     title: "Success",
+                        //     text: "content added successfully.",
+                        //     timer: 1000,
+                        //     showConfirmButton: false
+                        // })
+                        setTimeout(function () {
+                            window.history.back();
+                        }, 1000)
+                    }
+                    else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something is wrong",
+                            confirmButtonColor: "#000000",
+                        })
+                    }
+                })
+                .catch(function (res) {
+                    console.log(res);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something is wrong",
+                        confirmButtonColor: "#000000",
+                    })
+                })
+        })
+
+        $('#updateContentButton').click(function (e) {
+            e.preventDefault();
+
+            const contentId = $('#content_id').val()
+            const subcategory_menu_id = $('#subcategory_menu_id').val()
+            const category_menu_id = $('#category_menu_id').val()
+            const content = $('#editor').val()
+
+            const data = {
+                subcategory_menu_id, category_menu_id, content
+            }
+            // console.log('update data : ', data)
+
+            fetch(`/admin/content/${contentId}`,
+                {
+                    method: "PUT",
+                    body: JSON.stringify(data),
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(async function (res) {
+                    const data = await res.json()
+                    if (data.success) {
+                        // Toastify({
+                        //     text: "content updated successfully.",
+                        //     duration: 1000,
+                        //     close: true,
+                        //     gravity: "top",
+                        //     position: "right",
+                        //     backgroundColor: "rgb(31 191 95)",
+                        // }).showToast();
+                        setTimeout(function () {
+                            window.history.back();
+                        }, 1000)
+                    }
+                    else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something is wrong",
+                            confirmButtonColor: "#000000",
+                        })
+                    }
+                })
+                .catch(function (res) {
+                    console.log(res);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something is wrong",
+                        confirmButtonColor: "#000000",
+                    })
+                })
+        });
+
+
+    </script>
+
+    </div>
+
+    <%- include('../layouts/footer') %>

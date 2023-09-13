@@ -1,0 +1,18 @@
+sidebar => dashboard, app, data, settings, logout
+
+models
+app=>category=>category_menu=>subCategory=>subCategory_menu=>content
+
+===redirect ,
+===back button,
+====color feild,
+===casecade delete,
+soft delete,
+===if sidebar else bottom
+===only one category add in one app
+
+ads_type
+id, app_name, palteform_name,priority, name
+
+serve country
+id ads_type_id, country_code, calling_code, country_name
