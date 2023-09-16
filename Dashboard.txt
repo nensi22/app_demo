@@ -12,7 +12,7 @@ soft delete,
 ===only one category add in one app
 
 ads_type
-id, app_name, palteform_name,priority, name
+id, app_id, palteform_name,priority, ads_placement_type
 
 serve country
 id ads_type_id, country_code, calling_code, country_name

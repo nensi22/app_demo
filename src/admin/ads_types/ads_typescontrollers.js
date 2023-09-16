@@ -35,7 +35,7 @@ export const createAdsTypes = async (req, res) => {
   try {
     const adsTypesData = await Ads_type.create({
       app_name: req.body.app_name,
-      paltform_name: req.body.paltform_name,
+      platform_name: req.body.platform_name,
       priority: req.body.priority,
       name: req.body.name,
     });
@@ -66,7 +66,7 @@ export const updateAdsTypes = async (req, res) => {
     const id = req.params.id;
     const {
       app_name,
-      paltform_name,
+      platform_name,
       priority,
       name,
     } = req.body;
@@ -75,7 +75,7 @@ export const updateAdsTypes = async (req, res) => {
 
     if (adsTypesData) {
       adsTypesData.app_name = app_name;
-      adsTypesData.paltform_name = paltform_name;
+      adsTypesData.platform_name = platform_name;
       adsTypesData.priority = priority;
       adsTypesData.name = name;
 

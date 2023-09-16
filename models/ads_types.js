@@ -14,7 +14,7 @@ Ads_type.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    paltform_name: {
+    platform_name: {
       type: DataTypes.STRING,
       allowNull: true,
     },

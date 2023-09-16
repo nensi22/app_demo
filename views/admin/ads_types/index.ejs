@@ -66,8 +66,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Platform Name: </label>
-                                <input type="text" placeholder="Enter paltform name" id="paltform_name"
-                                    name="paltform_name" class="form-control" required>
+                                <input type="text" placeholder="Enter paltform name" id="platform_name"
+                                    name="platform_name" class="form-control" required>
                                 <p class="text-danger" id="err-paltform_name" style=" color: #9f0606; display: none">
                                     paltform name
                                     is required</p>
@@ -121,8 +121,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Platform Name: </label>
-                                <input type="text" placeholder="Enter paltform name" id="up-paltform_name"
-                                    name="paltform_name" class="form-control" required>
+                                <input type="text" placeholder="Enter platform name" id="up-platform_name"
+                                    name="platform_name" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Priority: </label>
@@ -173,7 +173,7 @@
                         }
                     },
                     { "data": 'app_name' },
-                    { "data": 'paltform_name' },
+                    { "data": 'platform_name' },
                     { "data": 'priority' },
                     { "data": 'name' },
                     {
@@ -195,12 +195,12 @@
                 e.preventDefault();
 
                 const app_name = $('#app_name').val()
-                const paltform_name = $("#paltform_name").val();
+                const platform_name = $("#platform_name").val();
                 const priority = $("#priority").val();
                 const name = $('#name').val()
 
                 const data = {
-                    app_name, paltform_name, priority, name
+                    app_name, platform_name, priority, name
                 }
 
                 fetch(`/admin/ads_types`,
@@ -258,10 +258,10 @@
             fetch(`/admin/ads_types/view/${adsTypeId}`)
                 .then(response => response.json())
                 .then((data) => {
-                    const { app_name, paltform_name, priority, name, id } = data.data
+                    const { app_name, platform_name, priority, name, id } = data.data
                     $('#id').val(id)
                     $('#up-app_name').val(app_name)
-                    $('#up-paltform_name').val(paltform_name)
+                    $('#up-platform_name').val(platform_name)
                     $('#up-priority').val(priority)
                     $('#up-name').val(name)
                 })
