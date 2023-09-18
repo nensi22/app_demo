@@ -66,8 +66,14 @@
                             </div>
                             <div class="form-group">
                                 <label>Platform Name: </label>
-                                <input type="text" placeholder="Enter paltform name" id="platform_name"
-                                    name="platform_name" class="form-control" required>
+                                <select class="choices form-control form-select-white"
+                                    style="width: 100%; background-color: white; color:black ;" id="platform_name"
+                                    name="platform_name" data-placeholder="Select platform">
+                                    <option value="google">Google</option>
+                                    <option value="facebook">Facebook</option>
+                                    <option value="applovin">Applovin</option>
+                                    <option value="qureka">Qureka</option>
+                                </select>
                                 <p class="text-danger" id="err-paltform_name" style=" color: #9f0606; display: none">
                                     paltform name
                                     is required</p>
@@ -121,8 +127,14 @@
                             </div>
                             <div class="form-group">
                                 <label>Platform Name: </label>
-                                <input type="text" placeholder="Enter platform name" id="up-platform_name"
-                                    name="platform_name" class="form-control" required>
+                                <select class="choices form-control form-select-white"
+                                    style="width: 100%; background-color: white; color:black ;" id="up-platform_name"
+                                    name="platform_name" required>
+                                    <option value="google">Google</option>
+                                    <option value="facebook">Facebook</option>
+                                    <option value="applovin">Applovin</option>
+                                    <option value="qureka">Qureka</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label>Priority: </label>
