@@ -36,7 +36,6 @@ allModels.sequelize.sync({ alter: true })
     console.log("Database connected");
     app.listen(PORT, () => {
       console.log(`Server runnig on port ${PORT}`);
-
       seeder();
     });
   }).catch((error) => {
